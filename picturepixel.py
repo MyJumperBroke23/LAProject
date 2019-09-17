@@ -55,3 +55,5 @@ def showPlot():
     plt.xlabel('x')
     plt.ylabel('y')
     plt.show()
+
+showPlot()

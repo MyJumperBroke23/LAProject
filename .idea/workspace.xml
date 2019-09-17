@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba695a82-b610-4267-9249-f5e982e098c0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/IMG_3705.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/IMG_3707.MOV" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LinearTransform.py" beforeDir="false" afterPath="$PROJECT_DIR$/LinearTransform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img1.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img2.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/outline.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/penguindab.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/penguindab2.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/penguindab3.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/phase.py" beforeDir="false" afterPath="$PROJECT_DIR$/phase.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/picturepixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/picturepixel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pixelpicture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vidprocess.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +15,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LinearTransform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+            <state relative-caret-position="90">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+              <folding>
+                <element signature="e#29#50#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,8 +36,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/picturepixel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="378">
+              <caret line="58" column="10" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -63,8 +53,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/LinearTransform.py" />
         <option value="$PROJECT_DIR$/phase.py" />
+        <option value="$PROJECT_DIR$/LinearTransform.py" />
         <option value="$PROJECT_DIR$/picturepixel.py" />
       </list>
     </option>
@@ -159,7 +149,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3298969" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3298969" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -170,13 +160,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/phase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -189,10 +172,17 @@
     <entry file="file://$USER_HOME$/PycharmProjects/LAProject/LinearTransform.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/phase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/picturepixel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="378">
+          <caret line="58" column="10" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -201,8 +191,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LinearTransform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+        <state relative-caret-position="90">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#29#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
