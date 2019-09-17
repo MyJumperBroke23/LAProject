@@ -44,7 +44,7 @@ def showPlot():
 
     SHEAR = 1.2
 
-    r_matrix = np.array([[1, 0],
+    r_matrix = np.array([[2, 0],
                          [0, 1]])
 
     coords_new = np.dot(r_matrix, coordsList)
