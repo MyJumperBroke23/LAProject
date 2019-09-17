@@ -27,7 +27,7 @@ def pic2array(image):
 
 
 def showPlot():
-    img = cv2.imread("penguindab3.jpeg")
+    img = cv2.imread("images/penguindab3.jpeg")
     img = findEdges(img)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 

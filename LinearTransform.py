@@ -56,7 +56,7 @@ def init(data):
     data.i_selected = False
     data.j_selected = False
 
-    data.img = cv2.imread("penguindab3.jpeg")
+    data.img = cv2.imread("images/penguindab3.jpeg")
     data.img = findEdges(data.img)
     data.img = cv2.cvtColor(data.img, cv2.COLOR_BGR2GRAY)
 

@@ -1,7 +1,7 @@
 import cv2
 
-img1 = cv2.imread("img1.jpeg")
-img2 = cv2.imread("img2.jpeg")
+img1 = cv2.imread("images/img1.jpeg")
+img2 = cv2.imread("images/img2.jpeg")
 
 img3 = cv2.addWeighted(img1, 0.9, img2, 0.1, 0.0)
 
