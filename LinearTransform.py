@@ -2,9 +2,12 @@
 
 from tkinter import *
 import numpy as np
-import cv2
+import pickle
 
-USE_CV2 = True
+USE_CV2 = False
+
+if USE_CV2:
+    import cv2
 
 
 def distance(x0,x1,y0,y1):
@@ -59,12 +62,17 @@ def init(data):
     data.i_selected = False
     data.j_selected = False
 
-    data.img = cv2.imread("images/penguindab2.jpeg")
-    data.img = findEdges(data.img)
-    data.img = cv2.cvtColor(data.img, cv2.COLOR_BGR2GRAY)
 
-    data.coordsList = np.array(pic2array(data.img))
-    data.coordsList = np.transpose(data.coordsList)
+    if USE_CV2:
+        data.img = cv2.imread("images/penguindab2.jpeg")
+        data.img = findEdges(data.img)
+        data.img = cv2.cvtColor(data.img, cv2.COLOR_BGR2GRAY)
+
+        data.coordsList = np.array(pic2array(data.img))
+        data.coordsList = np.transpose(data.coordsList)
+    else:
+        with open('examplePoints', 'rb') as fp:
+            data.coordsList = pickle.load(fp)
 
     max_val = np.max(data.coordsList)
     data.scale = 4/max_val
