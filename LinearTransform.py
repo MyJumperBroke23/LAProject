@@ -4,6 +4,8 @@ from tkinter import *
 import numpy as np
 import cv2
 
+USE_CV2 = True
+
 
 def distance(x0,x1,y0,y1):
     return ((x0-x1)**2 + (y0-y1)**2) ** 0.5
@@ -34,6 +36,7 @@ def pic2array(image):
     return pointsList
 
 
+
 ####################################
 # customize these functions
 ####################################
@@ -56,7 +59,7 @@ def init(data):
     data.i_selected = False
     data.j_selected = False
 
-    data.img = cv2.imread("images/penguindab3.jpeg")
+    data.img = cv2.imread("images/penguindab2.jpeg")
     data.img = findEdges(data.img)
     data.img = cv2.cvtColor(data.img, cv2.COLOR_BGR2GRAY)
 

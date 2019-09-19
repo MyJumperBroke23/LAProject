@@ -3,7 +3,7 @@ import cv2
 img1 = cv2.imread("images/img1.jpeg")
 img2 = cv2.imread("images/img2.jpeg")
 
-alpha = 0.7
+alpha = 1
 
 img3 = cv2.addWeighted(img1, alpha, img2, 1-alpha, 0.0)
 

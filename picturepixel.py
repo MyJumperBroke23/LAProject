@@ -37,15 +37,15 @@ def showPlot():
     colors = (0,1,0)
     colors2 = (1,0,0)
 
-    ROTATION = math.radians(90)  # How much to rotate clockwise in degrees
+    ROTATION = math.radians(45)  # How much to rotate clockwise in degrees
 
     r_matrix = np.array([[math.cos(ROTATION), -math.sin(ROTATION)],
                         [math.sin(ROTATION), math.cos(ROTATION)]])
 
     SHEAR = 1.2
 
-    r_matrix = np.array([[2, 0],
-                         [0, 1]])
+    #r_matrix = np.array([[1, 0],
+      #                   [0, -1]])
 
     coords_new = np.dot(r_matrix, coordsList)
 
