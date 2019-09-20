@@ -3,6 +3,9 @@
 from tkinter import *
 import numpy as np
 import pickle
+import os
+import sys
+
 
 USE_CV2 = False
 
@@ -71,7 +74,7 @@ def init(data):
         data.coordsList = np.array(pic2array(data.img))
         data.coordsList = np.transpose(data.coordsList)
     else:
-        with open('examplePoints', 'rb') as fp:
+        with open(os.path.dirname(os.path.abspath(sys.argv[0])) + '/examplePoints.txt', 'rb') as fp:
             data.coordsList = pickle.load(fp)
 
     max_val = np.max(data.coordsList)
@@ -110,7 +113,7 @@ def leftReleased(event, canvas, data):
         i_y = -(event.y - data.height/2)/data.line_spacing
         data.mult_matrix = np.array([[i_x, data.mult_matrix[0,1]],
                                      [i_y, data.mult_matrix[1,1]]])
-        data.drawCoords = np.dot(data.mult_matrix, data.coordsList)
+        data.drawCoords = np.dot(data.mult_matrix, data.coordsList)  # Linear Transformation
 
         canvas.delete(ALL)
         canvas.create_rectangle(0, 0, data.width, data.height,
@@ -123,7 +126,7 @@ def leftReleased(event, canvas, data):
         j_y = -(event.y - data.height/2)/data.line_spacing
         data.mult_matrix = np.array([[data.mult_matrix[0,0], j_x],
                                      [data.mult_matrix[1,0], j_y]])
-        data.drawCoords = np.dot(data.mult_matrix, data.coordsList)
+        data.drawCoords = np.dot(data.mult_matrix, data.coordsList)  # Linear Transformation
 
         canvas.delete(ALL)
         canvas.create_rectangle(0, 0, data.width, data.height,
@@ -142,20 +145,23 @@ def redrawAll(canvas, data):
     drawGrid(canvas, data)
     drawUnitVectors(canvas, data)
     drawImage(canvas, data)
+    drawUnitMatrix(canvas, data)
+    drawNewGrid(canvas, data)
 
 def drawGrid(canvas, data):
     w = data.width
     h = data.height
     l = data.line_spacing
+    # Creates all vertical lines at intervals of 100
     for i in range(0, w, l):
         canvas.create_line([(i, 0), (i, h)], tag='grid_line')
 
-    # Creates all horizontal lines at intevals of 100
+    # Creates all horizontal lines at intervals of 100
     for i in range(0, h, l):
         canvas.create_line([(0, i), (w, i)], tag='grid_line')
 
-    canvas.create_line([(w/2, 0), (w/2, h)], fill="blue", width=2)  # Y Axis
-    canvas.create_line([(0, h/2), (w, h/2)], fill="red", width=2)  # Y Axis
+    # canvas.create_line([(w/2, 0), (w/2, h)], fill="blue", width=2)  # Y Axis
+    # canvas.create_line([(0, h/2), (w, h/2)], fill="red", width=2)  # X Axis
 
 def drawUnitVectors(canvas, data):
     data.i = canvas.create_line([(data.width/2, data.height/2), (data.i_x, data.i_y)], fill="red", width=3,
@@ -170,7 +176,59 @@ def drawImage(canvas, data):
         x = (data.drawCoords[0, point] * data.line_spacing) + data.width/2
         y = -(data.drawCoords[1, point] * data.line_spacing) + data.height/2
         canvas.create_oval(x-1, y-1, x+1, y+1, fill="purple", outline="")
+    for point in range(len(data.coordsList[0])):
+        x = (data.coordsList[0, point] * data.line_spacing) + data.width/2
+        y = -(data.coordsList[1, point] * data.line_spacing) + data.height/2
+        canvas.create_oval(x-1, y-1, x+1, y+1, fill="green", outline="")
 
+def drawUnitMatrix(canvas, data):
+    i_x_val = (data.i_x - data.width / 2) / data.line_spacing
+    i_y_val = -(data.i_y - data.height / 2) / data.line_spacing
+    j_x_val = (data.j_x - data.width / 2) / data.line_spacing
+    j_y_val = -(data.j_y - data.width / 2) / data.line_spacing
+    # Left Bracket
+    canvas.create_line([(100,100), (100,200)], width=4)
+    canvas.create_line([(99, 200), (110, 200)], width=4)
+    canvas.create_line([(190, 200), (201, 200)], width=4)
+    # Right Bracket
+    canvas.create_line([(200, 100), (200, 200)], width=4)
+    canvas.create_line([(99, 100), (110, 100)], width=4)
+    canvas.create_line([(190, 100), (201, 100)], width=4)
+
+    canvas.create_text(125,125, fill="red", font="Times 20 bold", text="%.2f" % i_x_val)
+    canvas.create_text(175, 125, fill="blue", font="Times 20 bold", text="%.2f" % j_x_val)
+    canvas.create_text(125, 175, fill="red", font="Times 20 bold", text="%.2f" % i_y_val)
+    canvas.create_text(175, 175, fill="blue", font="Times 20 bold", text="%.2f" % j_y_val)
+
+def drawNewGrid(canvas, data):
+    i_x = data.i_x
+    i_y = data.i_y
+    j_x = data.j_x
+    j_y = data.j_y
+
+    if (i_x != 400):
+        slope = (i_y - 400) / (i_x - 400)  # Where y = mx + b
+
+        for axis_row in range(-40, 40):
+            b = (i_y + axis_row * (j_y - 400)) - (slope * (i_x + axis_row * (j_x-400)))  # b = y-mx
+            canvas.create_line([(0, b), (800, (slope * 800) + b)], fill="red")
+    else:
+        for i in range(0, data.height, int(j_x - 400)):
+            canvas.create_line([(i, 0), (i, data.width)], fill='red')
+
+    if (j_x != 400):
+        slope = (j_y - 400) / (j_x - 400)  # Where y = mx + b
+
+        for axis_row in range(-40, 40):
+            b = (j_y + axis_row * (i_y - 400)) - (slope * (j_x + axis_row * (i_x - 400)))  # b = y-mx
+            # print(x_slope)
+            #print("axis_row:", axis_row)
+            #print("b: ", b)
+            canvas.create_line([(0, b), (800, (slope * 800) + b)], fill="blue")
+
+    else:
+        for i in range(0, data.width, int(i_x-400)):
+            canvas.create_line([(i, 0), (i, data.height)], fill="blue")
 
 ####################################
 # use the run function as-is

@@ -1,6 +1,8 @@
 import pickle
 import cv2
 import numpy as np
+import os
+import sys
 
 
 def findEdges(image):
@@ -24,13 +26,14 @@ def pic2array(image):
                 pointsList.append([col, len(image)-row])
     return pointsList
 
-img = cv2.imread("images/penguindab3.jpeg")
-img = findEdges(img)
-img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-coordsList = np.array(pic2array(img))
-coordsList = np.transpose(coordsList)
+#img = cv2.imread("images/penguindab3.jpeg")
+#img = findEdges(img)
+#img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-with open('examplePoints', 'wb') as fp:
-    pickle.dump(coordsList, fp)
+#coordsList = np.array(pic2array(img))
+#coordsList = np.transpose(coordsList)
+
+#with open('examplePoints', 'wb') as fp:
+    #pickle.dump(coordsList, fp)
 
