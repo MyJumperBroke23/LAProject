@@ -78,7 +78,7 @@ def init(data):
             data.coordsList = pickle.load(fp)
 
     max_val = np.max(data.coordsList)
-    data.scale = 4/max_val
+    data.scale = 1.3333/max_val
     data.coordsList = data.coordsList * data.scale  # CoordsList stores # of notches away from the origin
 
     data.mult_matrix = np.array([[1, 0],
@@ -155,11 +155,11 @@ def drawGrid(canvas, data):
     l = data.line_spacing
     # Creates all vertical lines at intervals of line_spacing
     for i in range(0, w, l):
-        canvas.create_line([(i, 0), (i, h)], tag='grid_line')
+        canvas.create_line([(i, 0), (i, h)], tag='grid_line', fill="grey")
 
     # Creates all horizontal lines at intervals of line_spacing
     for i in range(0, h, l):
-        canvas.create_line([(0, i), (w, i)], tag='grid_line')
+        canvas.create_line([(0, i), (w, i)], tag='grid_line', fill="grey")
 
     # canvas.create_line([(w/2, 0), (w/2, h)], fill="blue", width=2)  # Y Axis
     # canvas.create_line([(0, h/2), (w, h/2)], fill="red", width=2)  # X Axis
