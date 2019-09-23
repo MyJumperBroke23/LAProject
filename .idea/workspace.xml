@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ba695a82-b610-4267-9249-f5e982e098c0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/LinearTransform.py" beforeDir="false" afterPath="$PROJECT_DIR$/LinearTransform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helperthing.py" beforeDir="false" afterPath="$PROJECT_DIR$/helperthing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LinearTransform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="76" column="44" selection-start-line="76" selection-start-column="44" selection-end-line="76" selection-end-column="44" />
+            <state relative-caret-position="146">
+              <caret line="242" column="34" lean-forward="true" selection-start-line="242" selection-start-column="34" selection-end-line="242" selection-end-column="34" />
               <folding>
                 <element signature="e#29#50#0" expanded="true" />
               </folding>
@@ -303,8 +302,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LinearTransform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="76" column="44" selection-start-line="76" selection-start-column="44" selection-end-line="76" selection-end-column="44" />
+        <state relative-caret-position="146">
+          <caret line="242" column="34" lean-forward="true" selection-start-line="242" selection-start-column="34" selection-end-line="242" selection-end-column="34" />
           <folding>
             <element signature="e#29#50#0" expanded="true" />
           </folding>

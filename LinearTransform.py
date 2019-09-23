@@ -146,17 +146,18 @@ def redrawAll(canvas, data):
     drawUnitVectors(canvas, data)
     drawImage(canvas, data)
     drawUnitMatrix(canvas, data)
-    drawNewGrid(canvas, data)
+    #drawNewGrid(canvas, data)
+    drawNewGridBetter(canvas, data)
 
 def drawGrid(canvas, data):
     w = data.width
     h = data.height
     l = data.line_spacing
-    # Creates all vertical lines at intervals of 100
+    # Creates all vertical lines at intervals of line_spacing
     for i in range(0, w, l):
         canvas.create_line([(i, 0), (i, h)], tag='grid_line')
 
-    # Creates all horizontal lines at intervals of 100
+    # Creates all horizontal lines at intervals of line_spacing
     for i in range(0, h, l):
         canvas.create_line([(0, i), (w, i)], tag='grid_line')
 
@@ -209,7 +210,7 @@ def drawNewGrid(canvas, data):
     if (i_x != 400):
         slope = (i_y - 400) / (i_x - 400)  # Where y = mx + b
 
-        for axis_row in range(-40, 40):
+        for axis_row in range(-6, 6):
             b = (i_y + axis_row * (j_y - 400)) - (slope * (i_x + axis_row * (j_x-400)))  # b = y-mx
             canvas.create_line([(0, b), (800, (slope * 800) + b)], fill="red")
     else:
@@ -219,16 +220,38 @@ def drawNewGrid(canvas, data):
     if (j_x != 400):
         slope = (j_y - 400) / (j_x - 400)  # Where y = mx + b
 
-        for axis_row in range(-40, 40):
+        for axis_row in range(-6, 6):
             b = (j_y + axis_row * (i_y - 400)) - (slope * (j_x + axis_row * (i_x - 400)))  # b = y-mx
-            # print(x_slope)
-            #print("axis_row:", axis_row)
-            #print("b: ", b)
             canvas.create_line([(0, b), (800, (slope * 800) + b)], fill="blue")
 
     else:
         for i in range(0, data.width, int(i_x-400)):
             canvas.create_line([(i, 0), (i, data.height)], fill="blue")
+
+
+def drawNewGridBetter(canvas, data):
+    i_x = data.i_x
+    i_y = data.i_y
+    j_x = data.j_x
+    j_y = data.j_y
+
+    # DRAW J_VECTOR LINES
+    for line in range(-4, 5):
+        x, y = 400, 400
+        x += (i_x - 400) * line
+        y += (i_y - 400) * line
+        x_change = ((j_x-400) * 5)
+        y_change = ((j_y-400) * 5)
+        canvas.create_line([(x-x_change, y-y_change), (x+x_change, y+y_change)], fill="blue")
+    # DRAW I_VECTOR LINES
+    for line in range(-4, 5):
+        x, y = 400, 400
+        x += (j_x - 400) * line
+        y += (j_y - 400) * line
+        x_change = ((i_x-400) * 5)
+        y_change = ((i_y-400) * 5)
+        canvas.create_line([(x-x_change, y-y_change), (x+x_change, y+y_change)], fill="red")
+
 
 ####################################
 # use the run function as-is
