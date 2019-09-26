@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ba695a82-b610-4267-9249-f5e982e098c0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/LinearTransform.py" beforeDir="false" afterPath="$PROJECT_DIR$/LinearTransform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helperthing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/phase.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/picturepixel.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LinearTransform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="74" column="38" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
+            <state relative-caret-position="228">
+              <caret line="113" column="27" lean-forward="true" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
               <folding>
                 <element signature="e#29#50#0" expanded="true" />
               </folding>
@@ -35,6 +32,11 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>data.zoom</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -198,8 +200,8 @@
     <frame x="0" y="23" width="1418" height="771" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24982105" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989011" visible="true" weight="0.24982105" />
+      <window_info id="Structure" order="1" sideWeight="0.50109893" side_tool="true" weight="0.24982105" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -272,8 +274,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LinearTransform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="74" column="38" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
+        <state relative-caret-position="228">
+          <caret line="113" column="27" lean-forward="true" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
           <folding>
             <element signature="e#29#50#0" expanded="true" />
           </folding>

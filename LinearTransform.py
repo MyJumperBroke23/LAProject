@@ -5,6 +5,7 @@ import numpy as np
 import pickle
 import os
 import sys
+import math
 
 
 USE_CV2 = False
@@ -81,18 +82,47 @@ def init(data):
     data.scale = 1.3333/max_val
     data.coordsList = data.coordsList * data.scale  # CoordsList stores # of notches away from the origin
 
+    data.coordsList[0] = data.coordsList[0] - min(data.coordsList[0])
+    data.coordsList[1] = data.coordsList[1] - min(data.coordsList[1])
+
     data.mult_matrix = np.array([[1, 0],
                                 [0, 1]])
 
     data.drawCoords = data.coordsList
 
+    data.zoom = 0.5  # Max Val of 1
+
 
 def leftPressed(event, canvas, data):
-    if (distance(data.i_x, event.x, data.i_y, event.y) < 4):
+    orig = (data.width / 2, data.height / 2)
+    new_i_x = orig[0] + (data.mult_matrix[0][0] * data.line_spacing) * data.zoom
+    new_i_y = orig[1] - (data.mult_matrix[1][0] * data.line_spacing) * data.zoom
+    new_j_x = orig[0] + (data.mult_matrix[0][1] * data.line_spacing) * data.zoom
+    new_j_y = orig[1] - (data.mult_matrix[1][1] * data.line_spacing) * data.zoom
+    if (distance(new_i_x, event.x, new_i_y, event.y) < 6):
         data.i_selected = True
-    elif (distance(data.j_x, event.x, data.j_y, event.y) < 4):
+    elif (distance(new_j_x, event.x, new_j_y, event.y) < 6):
         data.j_selected = True
-    pass
+    elif (event.x < 75 and event.y > 725):
+        if (data.zoom > 0.1):
+            data.zoom -= 0.1
+            print(data.zoom)
+            canvas.delete(ALL)
+            canvas.create_rectangle(0, 0, data.width, data.height,
+                                    fill='white', width=0)
+            redrawAll(canvas, data)
+            canvas.update()
+
+    elif (event.x > 725 and event.y > 725):
+        if (data.zoom < 1):
+            data.zoom += 0.1
+            print(data.zoom)
+            canvas.delete(ALL)
+            canvas.create_rectangle(0, 0, data.width, data.height,
+                                    fill='white', width=0)
+            redrawAll(canvas, data)
+            canvas.update()
+
 
 def leftMoved(event, canvas, data):
     if (data.i_selected):
@@ -109,10 +139,13 @@ def leftMoved(event, canvas, data):
 def leftReleased(event, canvas, data):
     if (data.i_selected):
         data.i_selected = False
-        i_x = (event.x - data.width/2)/data.line_spacing
-        i_y = -(event.y - data.height/2)/data.line_spacing
+        print(event.x)
+        i_x = (event.x - data.width/2)/(data.line_spacing * data.zoom)
+        print(i_x)
+        i_y = -(event.y - data.height/2)/(data.line_spacing * data.zoom)
         data.mult_matrix = np.array([[i_x, data.mult_matrix[0,1]],
                                      [i_y, data.mult_matrix[1,1]]])
+        print(data.mult_matrix)
         data.drawCoords = np.dot(data.mult_matrix, data.coordsList)  # Linear Transformation
 
         canvas.delete(ALL)
@@ -122,8 +155,8 @@ def leftReleased(event, canvas, data):
         canvas.update()
     elif (data.j_selected):
         data.j_selected = False
-        j_x = (event.x - data.width/2)/data.line_spacing
-        j_y = -(event.y - data.height/2)/data.line_spacing
+        j_x = (event.x - data.width/2)/(data.line_spacing * data.zoom)
+        j_y = -(event.y - data.height/2)/(data.line_spacing * data.zoom)
         data.mult_matrix = np.array([[data.mult_matrix[0,0], j_x],
                                      [data.mult_matrix[1,0], j_y]])
         data.drawCoords = np.dot(data.mult_matrix, data.coordsList)  # Linear Transformation
@@ -148,45 +181,49 @@ def redrawAll(canvas, data):
     drawUnitMatrix(canvas, data)
     #drawNewGrid(canvas, data)
     drawNewGridBetter(canvas, data)
+    drawZoom(canvas, data)
 
 def drawGrid(canvas, data):
     w = data.width
     h = data.height
-    l = data.line_spacing
+    l = round(data.line_spacing * data.zoom)
+    p1 = round((1-data.zoom) * (data.width)/2)
+    p2 = round((1+data.zoom) * (data.width)/2)
     # Creates all vertical lines at intervals of line_spacing
-    for i in range(0, w, l):
-        canvas.create_line([(i, 0), (i, h)], tag='grid_line', fill="grey")
+    for i in range(p1 + l, p2, l):
+        canvas.create_line([(i, p1), (i, p2)], tag='grid_line', fill="grey")
 
     # Creates all horizontal lines at intervals of line_spacing
-    for i in range(0, h, l):
-        canvas.create_line([(0, i), (w, i)], tag='grid_line', fill="grey")
+    for i in range(p1 + l, p2, l):
+        canvas.create_line([(p1, i), (p2, i)], tag='grid_line', fill="grey")
 
     # canvas.create_line([(w/2, 0), (w/2, h)], fill="blue", width=2)  # Y Axis
     # canvas.create_line([(0, h/2), (w, h/2)], fill="red", width=2)  # X Axis
 
 def drawUnitVectors(canvas, data):
-    data.i = canvas.create_line([(data.width/2, data.height/2), (data.i_x, data.i_y)], fill="red", width=3,
+    orig = (data.width/2, data.height/2)
+    new_i_x = orig[0] + (data.mult_matrix[0][0] * data.line_spacing) * data.zoom
+    new_i_y = orig[1] - (data.mult_matrix[1][0] * data.line_spacing) * data.zoom
+    new_j_x = orig[0] + (data.mult_matrix[0][1] * data.line_spacing) * data.zoom
+    new_j_y = orig[1] - (data.mult_matrix[1][1] * data.line_spacing) * data.zoom
+    data.i = canvas.create_line([(data.width/2, data.height/2), (new_i_x, new_i_y)], fill="red", width=3,
                        arrow=LAST)  # I Vector
-    data.i_circle = canvas.create_oval(data.i_x-4, data.i_y-4, data.i_x+4, data.i_y+4, fill="red", outline="")
-    data.j = canvas.create_line([(data.width / 2, data.height / 2), (data.j_x, data.j_y)],fill="blue", width=3,
+    data.i_circle = canvas.create_oval(new_i_x-4, new_i_y-4, new_i_x+4, new_i_y+4, fill="red", outline="")
+    data.j = canvas.create_line([(data.width / 2, data.height / 2), (new_j_x, new_j_y)],fill="blue", width=3,
                        arrow=LAST)  # J Vector
-    data.j_circle = canvas.create_oval(data.j_x-4, data.j_y-4, data.j_x+4, data.j_y+4, fill="blue", outline="")
+    data.j_circle = canvas.create_oval(new_j_x-4, new_j_y-4, new_j_x+4, new_j_y+4, fill="blue", outline="")
 
 def drawImage(canvas, data):
     for point in range(len(data.drawCoords[0])):
-        x = (data.drawCoords[0, point] * data.line_spacing) + data.width/2
-        y = -(data.drawCoords[1, point] * data.line_spacing) + data.height/2
+        x = (data.drawCoords[0, point] * data.line_spacing * data.zoom) + data.width/2
+        y = -(data.drawCoords[1, point] * data.line_spacing * data.zoom) + data.height/2
         canvas.create_oval(x-1, y-1, x+1, y+1, fill="purple", outline="")
     for point in range(len(data.coordsList[0])):
-        x = (data.coordsList[0, point] * data.line_spacing) + data.width/2
-        y = -(data.coordsList[1, point] * data.line_spacing) + data.height/2
+        x = (data.coordsList[0, point] * data.line_spacing * data.zoom) + data.width/2
+        y = -(data.coordsList[1, point] * data.line_spacing * data.zoom) + data.height/2
         canvas.create_oval(x-1, y-1, x+1, y+1, fill="green", outline="")
 
 def drawUnitMatrix(canvas, data):
-    i_x_val = (data.i_x - data.width / 2) / data.line_spacing
-    i_y_val = -(data.i_y - data.height / 2) / data.line_spacing
-    j_x_val = (data.j_x - data.width / 2) / data.line_spacing
-    j_y_val = -(data.j_y - data.width / 2) / data.line_spacing
     # Left Bracket
     canvas.create_line([(100,100), (100,200)], width=4)
     canvas.create_line([(99, 200), (110, 200)], width=4)
@@ -196,10 +233,10 @@ def drawUnitMatrix(canvas, data):
     canvas.create_line([(99, 100), (110, 100)], width=4)
     canvas.create_line([(190, 100), (201, 100)], width=4)
 
-    canvas.create_text(125,125, fill="red", font="Times 20 bold", text="%.2f" % i_x_val)
-    canvas.create_text(175, 125, fill="blue", font="Times 20 bold", text="%.2f" % j_x_val)
-    canvas.create_text(125, 175, fill="red", font="Times 20 bold", text="%.2f" % i_y_val)
-    canvas.create_text(175, 175, fill="blue", font="Times 20 bold", text="%.2f" % j_y_val)
+    canvas.create_text(125,125, fill="red", font="Times 20 bold", text="%.2f" % data.mult_matrix[0][0])
+    canvas.create_text(175, 125, fill="blue", font="Times 20 bold", text="%.2f" % data.mult_matrix[0][1])
+    canvas.create_text(125, 175, fill="red", font="Times 20 bold", text="%.2f" % data.mult_matrix[1][0])
+    canvas.create_text(175, 175, fill="blue", font="Times 20 bold", text="%.2f" % data.mult_matrix[1][1])
 
 def drawNewGrid(canvas, data):
     i_x = data.i_x
@@ -230,10 +267,11 @@ def drawNewGrid(canvas, data):
 
 
 def drawNewGridBetter(canvas, data):
-    i_x = data.i_x
-    i_y = data.i_y
-    j_x = data.j_x
-    j_y = data.j_y
+    orig = (data.width / 2, data.height / 2)
+    i_x = orig[0] + (data.mult_matrix[0][0] * data.line_spacing) * data.zoom
+    i_y = orig[1] - (data.mult_matrix[1][0] * data.line_spacing) * data.zoom
+    j_x = orig[0] + (data.mult_matrix[0][1] * data.line_spacing) * data.zoom
+    j_y = orig[1] - (data.mult_matrix[1][1] * data.line_spacing) * data.zoom
 
     # DRAW J_VECTOR LINES
     for line in range(-4, 5):
@@ -251,6 +289,21 @@ def drawNewGridBetter(canvas, data):
         x_change = ((i_x-400) * 5)
         y_change = ((i_y-400) * 5)
         canvas.create_line([(x-x_change, y-y_change), (x+x_change, y+y_change)], fill="red")
+
+
+def drawZoom(canvas, data):
+    # Zoom in
+    canvas.create_line([(725, 725), (725, 800)], width=4)
+    canvas.create_line([(723, 725), (800, 725)], width=4)
+
+    canvas.create_line([(762, 750), (762, 775)], width=4)
+    canvas.create_line([(750, 762), (775, 762)], width=4)
+
+    # Zoom Out
+    canvas.create_line([(75, 725), (75, 800)], width=4)
+    canvas.create_line([(77, 725), (0, 725)], width=4)
+
+    canvas.create_line([(25, 762), (50, 762)], width=4)
 
 
 ####################################
