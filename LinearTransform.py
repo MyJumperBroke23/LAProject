@@ -114,7 +114,7 @@ def leftPressed(event, canvas, data):
             canvas.update()
 
     elif (event.x > 725 and event.y > 725):
-        if (data.zoom < 1):
+        if (data.zoom < 3):
             data.zoom += 0.1
             print(data.zoom)
             canvas.delete(ALL)
