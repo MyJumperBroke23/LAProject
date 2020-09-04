@@ -1,4 +1,4 @@
 # LAProject
 Visualising Linear Transformations
 
-To run, go to dist -> LinearTransform
+To run, go to dist -> LinearTransform -> LinearTransform
